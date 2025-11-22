@@ -6,3 +6,14 @@ wget https://raw.githubusercontent.com/FahadSwati/Datasets_Project/main/impact_D
 
 # Verify both files downloaded successfully
 ls -lh
+
+
+# Check file sizes
+du -h *.csv
+
+# View first few lines to verify data
+head -5 city_day_Dataset_1.csv
+head -5 impact_Dataset_2.csv
+
+# Count rows in each file
+wc -l *.csv
