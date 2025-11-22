@@ -39,3 +39,21 @@ hdfs dfs -mkdir -p /user/hadoop/air-quality-project/output
 
 # Verify directories created
 hdfs dfs -ls /user/hadoop/air-quality-project
+
+
+
+# Make sure you're in /localDatasets directory
+cd /localDatasets
+
+# Upload Dataset 1 (city air quality data)
+hdfs dfs -put city_day_Dataset_1.csv /user/hadoop/air-quality-project/city-data/
+
+# Upload Dataset 2 (health impact data)
+hdfs dfs -put impact_Dataset_2.csv /user/hadoop/air-quality-project/impact-data/
+
+# Verify uploads were successful
+hdfs dfs -ls /user/hadoop/air-quality-project/city-data/
+hdfs dfs -ls /user/hadoop/air-quality-project/impact-data/
+
+# Check file sizes on HDFS
+hdfs dfs -du -h /user/hadoop/air-quality-project/
