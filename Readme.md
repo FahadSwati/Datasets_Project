@@ -83,3 +83,6 @@ FIELDS TERMINATED BY ','
 STORED AS TEXTFILE
 LOCATION '/user/hadoop/air-quality-project/city-data/'
 TBLPROPERTIES ("skip.header.line.count"="1");
+
+
+SELECT * FROM city_air_quality LIMIT 10;
