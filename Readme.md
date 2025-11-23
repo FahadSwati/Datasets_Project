@@ -122,3 +122,18 @@ LOCATION '/user/hadoop/air-quality-project/impact-data/'
 TBLPROPERTIES ("skip.header.line.count"="1");
 
 
+
+
+
+
+health_impact.measure_id	health_impact.measure_name	health_impact.location_id	health_impact.location_name	health_impact.sex_id	health_impact.sex_name	health_impact.age_id	health_impact.age_name	health_impact.cause_id	health_impact.cause_name	health_impact.rei_id	health_impact.rei_name	health_impact.metric_name	health_impact.year_col	health_impact.val	health_impact.upper_limit	health_impact.lower_limit	health_impact.metric_id	health_impact.number_col	health_impact.deaths	health_impact.rate	health_impact.percent_col
+1	Deaths	4841	Andhra Pradesh	3	Both	37	20+ years	294	All causes	85	Air pollution	1	null	2015.0	66617.10527047407	77212.47330284558	54687.99512817299	null	null	null	null
+1	Deaths	4841	Andhra Pradesh	3	Both	37	20+ years	294	All causes	85	Air pollution	2	null	2015.0	0.168784361779867	0.1934729666793971	0.1379701807846659	null	null	null	null
+1	Deaths	4841	Andhra Pradesh	3	Both	37	20+ years	294	All causes	85	Air pollution	3	null	2015.0	191.55642530635	222.02323734878001	157.25445906708998	null	null	null	null
+1	Deaths	4841	Andhra Pradesh	3	Both	37	20+ years	294	All causes	85	Air pollution	1	null	2016.0	67890.02090244256	79326.61188147124	55178.214022581655	null	null	null	null
+1	Deaths	4841	Andhra Pradesh	3	Both	37	20+ years	294	All causes	85	Air pollution	2	null	2016.0	0.1694294167254803	0.1955710596776405	0.1374754997874948	null	null	null	null
+1	Deaths	4841	Andhra Pradesh	3	Both	37	20+ years	294	All causes	85	Air pollution	3	null	2016.0	192.52871761966	224.96164613940002	156.47941545896	null	null	null	null
+1	Deaths	4841	Andhra Pradesh	3	Both	37	20+ years	294	All causes	85	Air pollution	1	null	2017.0	68452.13268478114	79927.13249995056	55993.02009991316	null	null	null	null
+1	Deaths	4841	Andhra Pradesh	3	Both	37	20+ years	294	All causes	85	Air pollution	2	null	2017.0	0.1685263904668176	0.1931521157027456	0.1369354968321531	null	null	null	null
+1	Deaths	4841	Andhra Pradesh	3	Both	37	20+ years	294	All causes	85	Air pollution	3	null	2017.0	191.54888871807	223.65926098006003	156.68468396005	null	null	null	null
+1	Deaths	4841	Andhra Pradesh	3
