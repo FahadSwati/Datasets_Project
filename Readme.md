@@ -126,9 +126,9 @@ TBLPROPERTIES ("skip.header.line.count"="1");
 
 SELECT 
     City,
-    ROUND(AVG(PM25), 2) AS Avg_PM25,
-    ROUND(AVG(NO2), 2) AS Avg_NO2,
-    ROUND(AVG(AQI), 2) AS Avg_AQI,
+    AVG(PM25) AS Avg_PM25,
+    AVG(NO2) AS Avg_NO2,
+    AVG(AQI) AS Avg_AQI,
     COUNT(*) AS Total_Records
 FROM city_air_quality
 WHERE PM25 IS NOT NULL
