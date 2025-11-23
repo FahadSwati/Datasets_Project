@@ -105,21 +105,20 @@ cause_name STRING,
 rei_id STRING,
 rei_name STRING,
 metric_name STRING,
-year_column INT,
+year_col INT,
 val DOUBLE,
-upper DOUBLE,
-lower DOUBLE,
+upper_limit DOUBLE,
+lower_limit DOUBLE,
 metric_id STRING,
-Number_column DOUBLE,
-Deaths DOUBLE,
-Rate DOUBLE,
-Percent DOUBLE
+number_col DOUBLE,
+deaths DOUBLE,
+rate DOUBLE,
+percent_col DOUBLE
 )
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
 STORED AS TEXTFILE
 LOCATION '/user/hadoop/air-quality-project/impact-data/'
 TBLPROPERTIES ("skip.header.line.count"="1");
-
 
 
