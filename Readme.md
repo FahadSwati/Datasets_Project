@@ -57,3 +57,29 @@ hdfs dfs -ls /user/hadoop/air-quality-project/impact-data/
 
 # Check file sizes on HDFS
 hdfs dfs -du -h /user/hadoop/air-quality-project/
+
+
+
+CREATE EXTERNAL TABLE IF NOT EXISTS city_air_quality (
+    City STRING,
+    Date STRING,
+    PM25 DOUBLE,
+    PM10 DOUBLE,
+    NO DOUBLE,
+    NO2 DOUBLE,
+    NOx DOUBLE,
+    NH3 DOUBLE,
+    CO DOUBLE,
+    SO2 DOUBLE,
+    O3 DOUBLE,
+    Benzene DOUBLE,
+    Toluene DOUBLE,
+    Xylene DOUBLE,
+    AQI DOUBLE,
+    AQI_Bucket STRING
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE
+LOCATION '/user/hadoop/air-quality-project/city-data/'
+TBLPROPERTIES ("skip.header.line.count"="1");
