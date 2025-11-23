@@ -83,3 +83,8 @@ FIELDS TERMINATED BY ','
 STORED AS TEXTFILE
 LOCATION '/user/hadoop/air-quality-project/city-data/'
 TBLPROPERTIES ("skip.header.line.count"="1");
+
+
+
+
+org.apache.hive.service.cli.HiveSQLException: Error while compiling statement: FAILED: ParseException line 3:0 Failed to recognize predicate 'Date'. Failed rule: 'identifier' in column specification
