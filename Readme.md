@@ -149,3 +149,36 @@ WHERE PM25 IS NOT NULL
 GROUP BY City
 ORDER BY Avg_AQI DESC
 LIMIT 10;
+
+
+
+
+
+
+
+
+
+# Navigate to local directory
+cd /localDatasets
+
+# Remove old files
+rm city_day_Dataset_1.csv
+rm impact_Dataset_2.csv
+
+# Download new files from GitHub (use your updated GitHub links)
+wget https://raw.githubusercontent.com/FahadSwati/Datasets_Project/main/city_monthly_Dataset_1.csv
+wget https://raw.githubusercontent.com/FahadSwati/Datasets_Project/main/impact_summary_Dataset_2.csv
+
+# Upload to HDFS
+hdfs dfs -put city_monthly_Dataset_1.csv /user/hadoop/air-quality-project/city-data/
+hdfs dfs -put impact_summary_Dataset_2.csv /user/hadoop/air-quality-project/impact-data/
+
+# Verify upload
+hdfs dfs -ls /user/hadoop/air-quality-project/city-data/
+hdfs dfs -ls /user/hadoop/air-quality-project/impact-data/
+
+DROP TABLE city_air_quality;
+DROP TABLE health_impact;
+
+
+
