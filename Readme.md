@@ -156,7 +156,13 @@ LIMIT 10;
 
 
 
+# Delete old files
+hdfs dfs -rm /user/hadoop/air-quality-project/city-data/city_day_Dataset_1.csv
+hdfs dfs -rm /user/hadoop/air-quality-project/impact-data/impact_Dataset_2.csv
 
+# Verify deletion
+hdfs dfs -ls /user/hadoop/air-quality-project/city-data/
+hdfs dfs -ls /user/hadoop/air-quality-project/impact-data/
 
 # Navigate to local directory
 cd /localDatasets
