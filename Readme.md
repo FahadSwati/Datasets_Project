@@ -171,6 +171,10 @@ GROUP BY City
 ORDER BY Avg_AQI DESC
 LIMIT 10;
 
+### 🎤 What to say:
+"Analysis 1: Identifying the top 10 most polluted cities"
+"Grouping by city and calculating average PM2.5, NO2, and AQI"
+[Read results] "Delhi has the highest average AQI at X, followed by..."
 
 ### Analysis 2: Yearly Pollution Trends
 
@@ -185,6 +189,13 @@ WHERE Date_Column IS NOT NULL
 GROUP BY SUBSTR(Date_Column, 1, 4)
 ORDER BY Year;
 
+###  🎤 What to say:
+"Analysis 2: Examining pollution trends over time"
+"Extracting year from date and calculating yearly averages"
+[Read results] "Pollution levels have increased/decreased from 20XX to 20XX"
+
+
+
 ### Analysis 3: AQI Category Distribution
 
 
@@ -196,6 +207,11 @@ FROM city_air_quality
 WHERE AQI_Bucket IS NOT NULL
 GROUP BY AQI_Bucket
 ORDER BY Count DESC;
+
+### 🎤 What to say:
+"Analysis 3: Distribution of air quality categories"
+"Calculating what percentage of days fall into each AQI bucket"
+[Read results] "X% of days have Severe air quality, Y% are Good..."
 
 
 ### Analysis 4: Pollutant Comparison by City
@@ -211,9 +227,12 @@ GROUP BY City
 ORDER BY Avg_PM25 DESC
 LIMIT 5;
 
+### 🎤 What to say:
+"Analysis 4: Comparing different pollutants across top 5 cities"
+"Looking at PM2.5, PM10, NO2, and CO levels"
+
 
 ### Analysis 5: Health Impact Analysis
-
 
 SELECT 
     location_name,
@@ -226,9 +245,13 @@ GROUP BY location_name
 ORDER BY Avg_Deaths DESC
 LIMIT 10;
 
+### 🎤 What to say:
+"Analysis 5: Health impact - deaths attributed to air pollution by location"
+"Identifying regions with highest mortality rates"
+[Read results] "X location has highest average deaths at Y per year"
+
 
 ### Analysis 6: Worst Pollution Days
-
 
 SELECT 
     City,
@@ -242,10 +265,12 @@ WHERE AQI IS NOT NULL
 ORDER BY AQI DESC
 LIMIT 20;
 
+### 🎤 What to say:
+- "Analysis 6: Identifying the worst pollution days"
+- "Finding days with highest AQI values"
+- [Read results] "The worst day was X date in Y city with AQI of Z"
 
 
-
-## 📹 **WEEK 10 VIDEO: Visualizations in Zeppelin (Record This!)**
 
 ### **PART 7: ZEPPELIN - Create Visualizations (8-10 minutes)**
 
@@ -257,6 +282,8 @@ LIMIT 20;
 4. Default Interpreter: Keep as "spark2"
 5. Click "Create"
 ```
+
+### Visualization 1: Multi-Pollutant Comparison (Bar Chart)
 
 %jdbc(hive)
 
@@ -273,4 +300,210 @@ GROUP BY City
 ORDER BY PM2_5 DESC
 LIMIT 8
 
+### After running:
+Click bar chart icon
+Keys: City
+Values: Select ALL pollutants (PM2_5, PM10, NO2, SO2, CO)
+Settings → Enable "Stacked" for grouped bars 
+ ### 🎤 Say in video:
+"This grouped bar chart compares multiple pollutants across cities"
+"Delhi shows highest levels across all pollutants"
 
+###  Visualization 2: Trend Over Time (Line Chart)
+
+
+%jdbc(hive)
+
+SELECT 
+    SUBSTR(Date_Column, 1, 7) AS Month_Year,
+    AVG(PM25) AS PM2_5,
+    AVG(NO2) AS Nitrogen_Dioxide,
+    AVG(AQI) AS Air_Quality_Index
+FROM city_air_quality
+WHERE Date_Column IS NOT NULL
+GROUP BY SUBSTR(Date_Column, 1, 7)
+ORDER BY Month_Year
+
+### After running:
+
+Click line chart icon
+Keys: Month_Year
+Values: All three metrics (PM2_5, Nitrogen_Dioxide, Air_Quality_Index)
+This creates a multi-line graph
+
+### 🎤 Say in video:
+"This line chart reveals seasonal patterns in air pollution"
+"We can see pollution peaks during winter months"
+
+
+### Visualization 3: AQI Category Distribution (Pie Chart)
+
+%jdbc(hive)
+
+SELECT 
+    AQI_Bucket AS Category,
+    COUNT(*) AS Days
+FROM city_air_quality
+WHERE AQI_Bucket IS NOT NULL
+GROUP BY AQI_Bucket
+ORDER BY Days DESC
+
+### After running:
+Click pie chart icon
+Keys: Category
+Values: Days
+
+### 🎤 Say in video:
+"Pie chart showing distribution of air quality days"
+"X% of days have hazardous air quality - a serious health concern"
+
+
+### Visualization 4: City-by-City AQI Comparison (Horizontal Bar)
+
+%jdbc(hive)
+
+SELECT 
+    City,
+    CAST(AVG(AQI) AS INT) AS Average_AQI,
+    CAST(MAX(AQI) AS INT) AS Worst_Day_AQI,
+    COUNT(*) AS Total_Days
+FROM city_air_quality
+WHERE AQI IS NOT NULL
+GROUP BY City
+ORDER BY Average_AQI DESC
+LIMIT 10
+
+### After running:
+
+Click bar chart icon
+Keys: City
+Values: Average_AQI, Worst_Day_AQI
+Settings → Change orientation to horizontal
+
+### 🎤 Say in video:
+"Comparing both average and worst-day AQI for each city"
+"Shows both typical conditions and extreme pollution events"
+
+
+### Visualization 5: Before/After Comparison (Area Chart)
+
+%jdbc(hive)
+
+SELECT 
+    SUBSTR(Date_Column, 1, 7) AS Month,
+    AVG(CASE WHEN SUBSTR(Date_Column, 1, 4) < '2018' THEN PM25 END) AS Before_2018,
+    AVG(CASE WHEN SUBSTR(Date_Column, 1, 4) >= '2018' THEN PM25 END) AS After_2018
+FROM city_air_quality
+WHERE Date_Column IS NOT NULL
+GROUP BY SUBSTR(Date_Column, 1, 7)
+ORDER BY Month
+
+### After running:
+
+Click area chart icon
+Keys: Month
+Values: Before_2018, After_2018
+
+### 🎤 Say in video:
+"Area chart comparing PM2.5 levels before and after 2018"
+"Helps evaluate impact of pollution control policies"
+
+
+### Visualization 6: Pollutant Heatmap Table
+
+%jdbc(hive)
+
+SELECT 
+    City,
+    CAST(AVG(PM25) AS INT) AS PM2_5,
+    CAST(AVG(PM10) AS INT) AS PM10,
+    CAST(AVG(NO2) AS INT) AS NO2,
+    CAST(AVG(AQI) AS INT) AS AQI,
+    CASE 
+        WHEN AVG(AQI) > 300 THEN 'Hazardous'
+        WHEN AVG(AQI) > 200 THEN 'Very Poor'
+        WHEN AVG(AQI) > 100 THEN 'Poor'
+        ELSE 'Moderate'
+    END AS Status
+FROM city_air_quality
+WHERE PM25 IS NOT NULL
+GROUP BY City
+ORDER BY AQI DESC
+
+### After running:
+
+Keep as table view
+Click settings
+Enable conditional formatting (if available)
+
+### 🎤 Say in video:
+"Summary table with color-coded air quality status"
+"Quick overview of pollution levels across all cities"
+
+
+### Visualization 7: Top vs Bottom Cities (Split Bar)
+
+%jdbc(hive)
+
+SELECT 
+    City,
+    AVG(AQI) AS Average_AQI
+FROM city_air_quality
+WHERE City IN (
+    SELECT City 
+    FROM (
+        SELECT City, AVG(AQI) AS avg_aqi
+        FROM city_air_quality 
+        WHERE AQI IS NOT NULL
+        GROUP BY City
+        ORDER BY avg_aqi DESC
+        LIMIT 5
+    ) top5
+    UNION ALL
+    SELECT City 
+    FROM (
+        SELECT City, AVG(AQI) AS avg_aqi
+        FROM city_air_quality 
+        WHERE AQI IS NOT NULL
+        GROUP BY City
+        ORDER BY avg_aqi ASC
+        LIMIT 5
+    ) bottom5
+)
+GROUP BY City
+ORDER BY Average_AQI DESC
+
+### After running:
+
+Click bar chart icon
+Shows clear contrast between best and worst cities
+
+### 🎤 Say in video:
+"Comparing the 5 most and 5 least polluted cities"
+"Stark difference between cleanest and most polluted areas"
+
+###  Visualization 8: Health Impact vs Pollution Severity
+
+%jdbc(hive)
+
+SELECT 
+    h.location_name AS Location,
+    CAST(AVG(h.deaths) AS INT) AS Avg_Deaths,
+    CAST(AVG(c.AQI) AS INT) AS Avg_AQI,
+    COUNT(DISTINCT c.Date_Column) AS Days_Measured
+FROM health_impact h
+LEFT JOIN city_air_quality c ON h.location_name = c.City
+WHERE h.deaths IS NOT NULL AND c.AQI IS NOT NULL
+GROUP BY h.location_name
+ORDER BY Avg_Deaths DESC
+LIMIT 10
+
+### After running:
+
+Click scatter plot or bar chart
+Keys: Location
+Values: Avg_Deaths and Avg_AQI
+
+### 🎤 Say in video:
+"Linking health impact data with pollution levels"
+"Shows correlation between AQI and mortality rates"
