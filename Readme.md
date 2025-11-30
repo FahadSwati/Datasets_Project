@@ -258,58 +258,19 @@ LIMIT 20;
 5. Click "Create"
 ```
 
-### Visualization 1: Bar Chart - Top Cities by AQI
-
 %jdbc(hive)
 
 SELECT 
     City,
-    AVG(AQI) AS Avg_AQI
+    AVG(PM25) AS PM2_5,
+    AVG(PM10) AS PM10,
+    AVG(NO2) AS NO2,
+    AVG(SO2) AS SO2,
+    AVG(CO) AS CO
 FROM city_air_quality
-WHERE AQI IS NOT NULL
+WHERE PM25 IS NOT NULL
 GROUP BY City
-ORDER BY Avg_AQI DESC
-LIMIT 10
+ORDER BY PM2_5 DESC
+LIMIT 8
 
 
-### Visualization 2: Line Chart - Pollution Trend
-
-
-%jdbc(hive)
-
-SELECT 
-    SUBSTR(Date_Column, 1, 7) AS Month,
-    AVG(PM25) AS Avg_PM25,
-    AVG(NO2) AS Avg_NO2
-FROM city_air_quality
-WHERE Date_Column IS NOT NULL
-GROUP BY SUBSTR(Date_Column, 1, 7)
-ORDER BY Month
-
-
-### Visualization 3: Pie Chart - AQI Categories
-
-
-%jdbc(hive)
-
-SELECT 
-    AQI_Bucket,
-    COUNT(*) AS Count
-FROM city_air_quality
-WHERE AQI_Bucket IS NOT NULL
-GROUP BY AQI_Bucket
-
-
-### Visualization 4: Table - Health Impact Summary
-
-%jdbc(hive)
-
-SELECT 
-    location_name AS Location,
-    CAST(AVG(deaths) AS INT) AS Avg_Deaths,
-    COUNT(*) AS Records
-FROM health_impact
-WHERE deaths IS NOT NULL
-GROUP BY location_name
-ORDER BY Avg_Deaths DESC
-LIMIT 15
