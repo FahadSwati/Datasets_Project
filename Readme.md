@@ -482,28 +482,4 @@ Shows clear contrast between best and worst cities
 "Comparing the 5 most and 5 least polluted cities"
 "Stark difference between cleanest and most polluted areas"
 
-###  Visualization 8: Health Impact vs Pollution Severity
 
-%jdbc(hive)
-
-SELECT 
-    h.location_name AS Location,
-    CAST(AVG(h.deaths) AS INT) AS Avg_Deaths,
-    CAST(AVG(c.AQI) AS INT) AS Avg_AQI,
-    COUNT(DISTINCT c.Date_Column) AS Days_Measured
-FROM health_impact h
-LEFT JOIN city_air_quality c ON h.location_name = c.City
-WHERE h.deaths IS NOT NULL AND c.AQI IS NOT NULL
-GROUP BY h.location_name
-ORDER BY Avg_Deaths DESC
-LIMIT 10
-
-### After running:
-
-Click scatter plot or bar chart
-Keys: Location
-Values: Avg_Deaths and Avg_AQI
-
-### 🎤 Say in video:
-"Linking health impact data with pollution levels"
-"Shows correlation between AQI and mortality rates"
