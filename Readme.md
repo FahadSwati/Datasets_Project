@@ -489,3 +489,30 @@ Shows clear contrast between best and worst cities
 ## Shriya
 
 wget "https://raw.githubusercontent.com/FahadSwati/Datasets_Project/main/Brasilia_Air_Quality%20(2).csv" -O Brasilia_Air_Quality_2.csv
+
+
+
+CREATE EXTERNAL TABLE brasilia_air_quality (
+    City STRING,
+    Date_Column STRING,
+    PM25 DOUBLE,
+    PM10 DOUBLE,
+    NO DOUBLE,
+    NO2 DOUBLE,
+    NOx DOUBLE,
+    NH3 DOUBLE,
+    CO DOUBLE,
+    SO2 DOUBLE,
+    O3 DOUBLE,
+    Benzene DOUBLE,
+    Toluene DOUBLE,
+    Xylene DOUBLE,
+    AQI DOUBLE,
+    AQI_Bucket STRING
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE
+LOCATION '/user/hadoop/air-quality-project/brasilia-data/'
+TBLPROPERTIES ("skip.header.line.count"="1");
+
